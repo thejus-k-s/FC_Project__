@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Fitness Tracker</title>
+   <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f7;
+    text-align: center;
+}
+
+.container {
+    width: 340px;
+    margin: 60px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+}
+     </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Fitness Tracker</h2>
+
+    <input type="number" id="weight" placeholder="Enter weight (kg)">
+    <input type="number" id="height" placeholder="Enter height (m)">
+    <input type="number" id="caloriesIntake" placeholder="Calories taken per day">
+    <input type="number" id="caloriesBurn" placeholder="Calories burned per day">
+
+    <button onclick="calculate()">Track</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+  function calculate() {
+
+    let weight = document.getElementById("weight").value;
+    let height = document.getElementById("height").value;
+    let intake = document.getElementById("caloriesIntake").value;
+    let burn = document.getElementById("caloriesBurn").value;
+
+    // Validation
+    if (weight === "" || height === "" || intake === "" || burn === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    weight = parseFloat(weight);
+    height = parseFloat(height);
+    intake = parseFloat(intake);
+    burn = parseFloat(burn);
+
+    // BMI Calculation
+    let bmi = weight / (height * height);
+    bmi = bmi.toFixed(2);
+
+    let bmiStatus = "";
+    if (bmi < 18.5) {
+        bmiStatus = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+        bmiStatus = "Normal weight";
+    } else if (bmi >= 25 && bmi < 29.9) {
+        bmiStatus = "Overweight";
+    } else {
+        bmiStatus = "Obese";
+    }
+
+    // Calorie balance
+    let balance = intake - burn;
+
+    // Risk condition
+    let riskMessage = "";
+    if (intake > 8000) {
+        riskMessage = "⚠️ High Risk: Excess calorie intake! Possible overweight.";
+    } else {
+        riskMessage = "✅ Calorie intake is within normal range.";
+    }
+
+    // Display result
+    document.getElementById("result").innerHTML =
+        `BMI: ${bmi} (${bmiStatus}) <br>
+         Calories Taken: ${intake} <br>
+         Calories Burned: ${burn} <br>
+         Net Calories: ${balance} <br>
+         ${riskMessage}`;
+  }
+</script>
+</body>
+</html>
