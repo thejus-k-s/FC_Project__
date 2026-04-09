@@ -36,9 +36,22 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
+button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #trackBtn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #resetBtn {
+            background-color: #dc3545;
+            color: white;
+            display: none;
 
 #result {
     margin-top: 20px;
@@ -56,7 +69,8 @@ button:hover {
     <input type="number" id="caloriesIntake" placeholder="Calories taken per day">
     <input type="number" id="caloriesBurn" placeholder="Calories burned per day">
 
-    <button onclick="calculate()">Track</button>
+    <button id="trackBtn" onclick="calculate()">Track</button>
+    <button id="resetBtn" onclick="resetForm()">Reset</button>
 
     <div id="result"></div>
 </div>
@@ -114,6 +128,11 @@ button:hover {
          Net Calories: ${balance} <br>
          ${riskMessage}`;
   }
+    function resetForm() {
+    document.getElementById("weight").value = "";
+    document.getElementById("height").value = "";
+    document.getElementById("caloriesIntake").value = "";
+    document.getElementById("caloriesBurn").innerHTML = "";
 </script>
 </body>
 </html>
